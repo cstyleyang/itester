@@ -1,0 +1,8 @@
+接口=payForAnotherService
+方法=placeOrder
+参数={"merchantID":"043101180050000", "orderNo":"20150801124501"}
+参数=dubbo.tester
+接口=queryOrderService
+方法=queryOrder
+参数={"merchantID":"043101180050000", "orderNo":"20150801124502"}
+参数=dubbo.tester

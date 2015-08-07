@@ -1,0 +1,31 @@
+[
+  {
+  "service":"payForAnotherService",
+  "clazz":"com.bestpay.paycenter.entry.dubbo.service.order.PayForAnotherService",
+  "method":"placeOrder",
+  "paramList":
+  [
+    {"type":"com.bestpay.paycenter.commons.model.PayReqModel",
+      "value":{"merchantID":"043101180050000", "orderNo":"20150801124501"}},
+
+    {"type":"java.lang.String",
+      "value":"dubbo.tester"}
+
+  ]
+}
+ ,
+{
+  "service":"queryOrderService",
+  "clazz":"com.bestpay.paycenter.entry.dubbo.query.QueryOrderService",
+  "method":"queryOrder",
+  "paramList":
+  [
+    {"type":"com.bestpay.paycenter.commons.model.PayReqModel",
+      "value":{"merchantID":"043101180050000", "orderNo":"20150801124501"}},
+
+    {"type":"java.lang.String",
+      "value":"dubbo.tester"}
+
+  ]
+}
+]

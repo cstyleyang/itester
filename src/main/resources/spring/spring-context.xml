@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- 定义运行Bean -->
+	<bean id="myApp" class="com.bestpay.tools.test.dubbo.App" />
+
+	<!-- 定义运行任务文件格式，目前支持自定义的txt文件 -->
+	<bean id="planReader" class="com.bestpay.tools.test.dubbo.reader.TextPlanReader" />
+
+	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.bestpay.tools.test.dubbo" />
+
+	<util:properties id="app" location="classpath:app-${env}.properties"/>
+
+	<!-- 引入Dubbo服务 -->
+ 	<import resource="classpath:spring/dubbo-test-consumer.xml"/>
+
+	<!-- 导入服务详情 -->
+	<import resource="classpath:service/service-detail.xml"/>
+</beans>
