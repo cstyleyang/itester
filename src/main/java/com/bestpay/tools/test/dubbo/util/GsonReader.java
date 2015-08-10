@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jiaju on 2015/8/1.
@@ -34,5 +35,11 @@ public class GsonReader {
             resultList.add(result);
         }
         return resultList;
+    }
+
+    static public String readMapToJson(Map<String, Object> map)
+    {
+        Gson gson = new Gson();
+        return gson.toJson(map);
     }
 }

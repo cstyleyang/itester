@@ -5,7 +5,7 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 方法详情 -->
-    <bean id="payForAnotherService.placeOrder" class="com.bestpay.tools.test.dubbo.model.ServiceDetail">
+    <bean id="payForAnotherService_placeOrder" class="com.bestpay.tools.test.dubbo.model.ServiceDetail">
         <!-- 服务的类型 -->
         <property name="clazz" value="com.bestpay.paycenter.entry.dubbo.service.order.PayForAnotherService"/>
         <!-- 入参的类型 -->
@@ -18,7 +18,7 @@
     </bean>
 
     <!-- 方法详情 -->
-    <bean id="queryOrderService.queryOrder" class="com.bestpay.tools.test.dubbo.model.ServiceDetail">
+    <bean id="queryOrderService_queryOrder" class="com.bestpay.tools.test.dubbo.model.ServiceDetail">
         <!-- 服务的类型 -->
         <property name="clazz" value="com.bestpay.paycenter.entry.dubbo.query.QueryOrderService"/>
         <!-- 入参的类型 -->

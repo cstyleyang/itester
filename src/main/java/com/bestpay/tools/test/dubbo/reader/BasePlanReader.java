@@ -14,7 +14,7 @@ public abstract class BasePlanReader {
 
     @Getter
     @Setter
-    protected List<TestTask> testTaskList;
+    static protected List<TestTask> testTaskList;
 
     public abstract boolean read(String plan, ClassPathXmlApplicationContext context);
 }

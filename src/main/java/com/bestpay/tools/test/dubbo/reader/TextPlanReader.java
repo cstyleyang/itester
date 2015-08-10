@@ -47,7 +47,7 @@ public class TextPlanReader extends  BasePlanReader{
                 if(null != testTask){
                     //设定接口类型
                     ServiceDetail serviceDetail = cache.getServiceCache().get(
-                            testTask.getService()  + "." + testTask.getMethod());
+                            testTask.getService()  + "_" + testTask.getMethod());
                     testTask.setClazz(serviceDetail.getClazz());
 
                     //TODO 设定参数类型 可以优化

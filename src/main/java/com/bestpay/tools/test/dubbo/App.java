@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @Slf4j
 public class App 
 {
+    @Getter
     static private ClassPathXmlApplicationContext context;
 
     static private App app;
@@ -27,13 +28,13 @@ public class App
         context.registerShutdownHook();
 
         app = context.getBean("myApp", App.class);
+
+        app.getDubboTester().Test(context);
     }
 
     public static void main( String[] args )
     {
-        StartApp();
-
         log.info("测试开始");
-        app.getDubboTester().Test(context);
+        StartApp();
     }
 }
