@@ -43,6 +43,12 @@ public class DubboTester {
         planReader.read(planPath, context);
         List<TestTask> testTaskList = planReader.getTestTaskList();
         log.info("任务列表:{}", testTaskList);
+        Class service=null;
+        try {
+             service = Class.forName("com.bestpay.paycenter.entry.dubbo.service.order.PayForAnotherService");
+        }catch(Exception e) {
+        }
+        log.info("服务类:{}", service);
 
         TestNG testng = new TestNG();
         testng.setVerbose(2);
