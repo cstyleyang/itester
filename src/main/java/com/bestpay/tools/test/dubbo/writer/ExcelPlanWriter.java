@@ -32,7 +32,7 @@ public class ExcelPlanWriter {
     Map<String,Integer> map;
 
     @Value("#{app.planPath}")
-    String planPath = "/Users/zhanglingsi/Documents/idea_code/itester/src/main/resources/example/plan_test.xls";
+    String planPath = "/Users/zhanglingsi/Documents/bestpay_code/itester/src/main/resources/example/plan.xls";
 
 
     public void writeRow(HSSFRow row,String result) throws IOException {

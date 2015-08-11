@@ -76,7 +76,7 @@ public class TestTaskFactory {
 
     @AfterMethod
     public void writerResult(){
-        ls.add(result.toString());
+        ls.add(null != result ? result.toString() : "");
     }
 
     @AfterClass
