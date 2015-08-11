@@ -4,12 +4,17 @@ import com.bestpay.tools.test.dubbo.App;
 import com.bestpay.tools.test.dubbo.model.TestTask;
 import com.bestpay.tools.test.dubbo.reader.BasePlanReader;
 import com.bestpay.tools.test.dubbo.util.GsonReader;
+import com.bestpay.tools.test.dubbo.writer.ExcelPlanWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,6 +22,10 @@ import java.util.List;
  */
 @Slf4j
 public class TestTaskFactory {
+
+    Object result;
+
+    List<String> ls = new LinkedList<String>();
 
     @DataProvider(name = "TestTask")
     public Object[][] createTestTask() {
@@ -37,7 +46,7 @@ public class TestTaskFactory {
         assert (task != null);
         log.info("任务:{}", task);
 
-        Object result;
+//        Object result;
 
         Class clazz = Class.forName(task.getClazz());
         Object service = App.getContext().getBean(task.getService(), clazz);
@@ -63,5 +72,17 @@ public class TestTaskFactory {
         //记录日志
         Reporter.log("测试结果" + result.toString());
         log.info("测试结果{}:", result);
+    }
+
+    @AfterMethod
+    public void writerResult(){
+        ls.add(result.toString());
+    }
+
+    @AfterClass
+    public void writerExcel() throws IOException {
+
+        ExcelPlanWriter writer = new ExcelPlanWriter();
+        writer.writeResult(ls);
     }
 }
