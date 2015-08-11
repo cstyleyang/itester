@@ -20,7 +20,6 @@ import java.util.Map;
  * Created by zhanglingsi on 15/8/11.
  */
 @Slf4j
-@Component
 public class ExcelPlanWriter {
 
     FileOutputStream output;
@@ -31,11 +30,13 @@ public class ExcelPlanWriter {
 
     Map<String,Integer> map;
 
-    @Value("#{app.planPath}")
-    String planPath = "/Users/zhanglingsi/Documents/bestpay_code/itester/src/main/resources/example/plan.xls";
+    String planPath = "plan.xls";
 
 
     public void writeRow(HSSFRow row,String result) throws IOException {
+
+        log.info("测试结果：{}",result);
+
         for(int k =0; k < row.getLastCellNum();k++ ){
             HSSFCell cell = row.getCell(k);
             cell.setCellType(HSSFCell.CELL_TYPE_STRING);
@@ -50,6 +51,7 @@ public class ExcelPlanWriter {
                 wk.write(output);
             }
         }
+        log.info("测试结果写入成功:{}",result);
 
     }
 
@@ -72,7 +74,10 @@ public class ExcelPlanWriter {
                 }
             }
 
+            log.info("记录写入cell坐标集合：" , map);
+
             int index = 0;
+
 
             for(Map.Entry<String,Integer> entry : map.entrySet()){
                 String sheetNo = entry.getKey().split("_")[0];
@@ -82,6 +87,8 @@ public class ExcelPlanWriter {
                 writeRow(row,ls.get(index));
                 index++;
             }
+
+            log.info("全部结果执行完毕，测试回写Excel完成！");
         }catch (Exception ex){
             ex.printStackTrace();
         }finally {

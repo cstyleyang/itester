@@ -81,7 +81,6 @@ public class TestTaskFactory {
 
     @AfterClass
     public void writerExcel() throws IOException {
-
         ExcelPlanWriter writer = new ExcelPlanWriter();
         writer.writeResult(ls);
     }
