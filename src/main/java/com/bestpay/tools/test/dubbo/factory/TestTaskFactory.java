@@ -32,7 +32,7 @@ public class TestTaskFactory extends AbstractTestNGSpringContextTests {
     List<String> ls = new LinkedList<String>();
 
     @Value("#{app.planPath}")
-    String planPath ; //= "/Users/zhanglingsi/Documents/bestpay_code/itester/src/main/resources/example/plan.xls";
+    String planPath ;
 
     @DataProvider(name = "TestTask")
     public Object[][] createTestTask() {
