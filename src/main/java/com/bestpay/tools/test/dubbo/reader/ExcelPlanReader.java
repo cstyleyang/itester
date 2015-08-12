@@ -92,7 +92,7 @@ public class ExcelPlanReader extends BasePlanReader{
                 }
 
                 //任务组装完成
-                testTask.setClazz(serviceDetail.getClazz());
+                testTask.setClazz(null!=serviceDetail?serviceDetail.getClazz():"");
                 testTask.setParamList(paramList);
                 testTaskList.add(testTask);
             }
@@ -106,7 +106,11 @@ public class ExcelPlanReader extends BasePlanReader{
     }
 
     public String getParamType(ServiceDetail serviceDetail, int num){
-        return serviceDetail.getParamClazzList().get(num);
+        if (null!=serviceDetail) {
+            return serviceDetail.getParamClazzList().get(num);
+        }else {
+            return "";
+        }
     }
 
     public Object getParamValue(Map<String, Object> map){
