@@ -1,10 +1,13 @@
 package com.bestpay.tools.test.dubbo.writer;
 
+import cn.com.bestpay.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
@@ -47,6 +50,34 @@ public class ExcelPlanWriter {
                 cell = null == cell ? row.createCell(k + 1) : cell;
                 cell.setCellType(HSSFCell.CELL_TYPE_STRING);
                 cell.setCellValue(result);
+
+                HSSFCell cellExpect = row.getCell(k+2);
+                HSSFCell cellResult = row.getCell(k+3);
+
+                CellStyle style = wk.createCellStyle();
+
+                cellExpect = null == cellExpect ? row.createCell(k + 2) : cellExpect;
+                cellResult = null == cellResult ? row.createCell(k + 3) : cellResult;
+
+                log.info("接口返回的Response :{}" ,result);
+                log.info("excel中Expect :{}", cellExpect.getStringCellValue().trim());
+
+                if(cell.getStringCellValue().equals(cellExpect.getStringCellValue().trim())) {
+                    style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+                    style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+                    cellResult.setCellType(HSSFCell.CELL_TYPE_STRING);
+                    cellResult.setCellStyle(style);
+                    cellResult.setCellValue("通过");
+                }else {
+                    style.setFillForegroundColor(IndexedColors.RED.getIndex());
+                    style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+                    cellResult.setCellType(HSSFCell.CELL_TYPE_STRING);
+                    cellResult.setCellStyle(style);
+                    cellResult.setCellValue("失败");
+                }
+
                 output = new FileOutputStream(planPath);
                 wk.write(output);
             }
