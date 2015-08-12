@@ -6,6 +6,9 @@ import com.bestpay.tools.test.dubbo.reader.BasePlanReader;
 import com.bestpay.tools.test.dubbo.util.GsonReader;
 import com.bestpay.tools.test.dubbo.writer.ExcelPlanWriter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -21,11 +24,15 @@ import java.util.List;
  * Created by Jiaju on 2015/8/8.
  */
 @Slf4j
-public class TestTaskFactory {
+@ContextConfiguration(locations={"/spring/spring-context.xml"})
+public class TestTaskFactory extends AbstractTestNGSpringContextTests {
 
     Object result;
 
     List<String> ls = new LinkedList<String>();
+
+    @Value("#{app.planPath}")
+    String planPath ; //= "/Users/zhanglingsi/Documents/bestpay_code/itester/src/main/resources/example/plan.xls";
 
     @DataProvider(name = "TestTask")
     public Object[][] createTestTask() {
@@ -82,6 +89,6 @@ public class TestTaskFactory {
     @AfterClass
     public void writerExcel() throws IOException {
         ExcelPlanWriter writer = new ExcelPlanWriter();
-        writer.writeResult(ls);
+        writer.writeResult(planPath,ls);
     }
 }

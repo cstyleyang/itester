@@ -7,12 +7,15 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,21 +33,18 @@ public class ExcelPlanWriter {
 
     Map<String,Integer> map;
 
-    String planPath = "plan.xls";
 
+    public void writeRow(HSSFRow row,String result,String planPath) throws IOException {
 
-    public void writeRow(HSSFRow row,String result) throws IOException {
-
-        log.info("测试结果：{}",result);
+        log.info("测试结果：{}", result);
 
         for(int k =0; k < row.getLastCellNum();k++ ){
             HSSFCell cell = row.getCell(k);
+            cell = null==cell ? row.createCell(k) : cell;
             cell.setCellType(HSSFCell.CELL_TYPE_STRING);
             if (null != cell && "#".equals(cell.getStringCellValue())) {
                 cell = row.getCell(k + 1);
-                if (null == cell) {
-                    cell = row.createCell(k + 1);
-                }
+                cell = null == cell ? row.createCell(k + 1) : cell;
                 cell.setCellType(HSSFCell.CELL_TYPE_STRING);
                 cell.setCellValue(result);
                 output = new FileOutputStream(planPath);
@@ -55,7 +55,7 @@ public class ExcelPlanWriter {
 
     }
 
-    public void writeResult(List<String> ls) {
+    public void writeResult(String planPath,List<String> ls) {
         try {
             is = new FileInputStream(planPath);
 
@@ -84,7 +84,7 @@ public class ExcelPlanWriter {
 
                 HSSFRow row = wk.getSheetAt(Integer.valueOf(sheetNo)).getRow(entry.getValue());
 
-                writeRow(row,ls.get(index));
+                writeRow(row,ls.get(index),planPath);
                 index++;
             }
 
