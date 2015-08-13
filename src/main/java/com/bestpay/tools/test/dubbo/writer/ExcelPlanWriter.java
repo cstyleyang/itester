@@ -60,7 +60,7 @@ public class ExcelPlanWriter {
                 cellExpect = null == cellExpect ? row.createCell(k + 2) : cellExpect;
                 cellResult = null == cellResult ? row.createCell(k + 3) : cellResult;
 
-                log.info("接口返回的Response :{}" ,"NoN_".equals(result) ? "执行结果异常" : result);
+                log.info("接口返回的Response :{}" ,"NoN_".equals(result) ? "工具异常：找不到服务" : result);
                 log.info("excel中Expect :{}", cellExpect.getStringCellValue().trim());
 
                 if ("NoN_".equals(result)){
@@ -87,7 +87,7 @@ public class ExcelPlanWriter {
 
                             cellResult.setCellType(HSSFCell.CELL_TYPE_STRING);
                             cellResult.setCellStyle(style);
-                            cellResult.setCellValue("通过");
+                            cellResult.setCellValue("执行通过");
                         }
                     }
                 }
