@@ -14,11 +14,9 @@ public class TestPlanListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult tr) {
-//        this.m_allTestMethods.add(tr.getMethod());
-//        this.m_failedTests.add(tr);
         TestTaskFactory.setFlag("NoN_");
         TestTaskFactory.setResult("");
-        log.info("====================" + tr.getThrowable()+"====================");
+        log.info("本次测试执行发生异常：{}" , tr.getThrowable());
     }
 
     @Override
